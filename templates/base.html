@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Django Ecommerce</title>
+</head>
+<body>
+    <header>
+        <h2>Django Ecommerce</h2>
+        <nav>
+            <a href="">Login</a> / 
+            <a href="{% url 'register' %}">Register</a> / 
+            <a href="">Logout</a> / 
+            <a href="">Sell Items</a> / 
+            <a href="">My Cart</a> / 
+            <a href="">Wishlist</a>
+        </nav>
+        <br>
+        <form method="get">
+            <input type="text" name="query" id="query" placeholder="Search">
+            Minimum Price: 
+            <select name="minprice">
+                <option value="100">100 Rs</option>
+                <option value="500">500 Rs</option>
+                <option value="1000">1000 Rs</option>
+                <option value="2000">2000 Rs</option>
+                <option value="4000">4000 Rs</option>
+            </select>
+            Maximum Price: 
+            <select name="maxprice">
+                <option value="100">500 Rs</option>
+                <option value="500">1000 Rs</option>
+                <option value="1000">2000 Rs</option>
+                <option value="2000">4000 Rs</option>
+                <option value="4000">8000 Rs</option>
+            </select>
+            Sort By: 
+            <select name="sortby">
+                <option value="Price low to high">Price low to high</option>
+                <option value="Price high to low">Price high to low</option>
+            </select>
+            <button type="submit">Search</button>
+        </form>
+    </header>
+    <hr>
+    {% if messages %}
+        {% for message in messages %}
+            <div style="alert-{{ message.tags }}">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+    <main>
+        {% block main %}
+
+        {% endblock main %}
+    </main>
+    <style>
+        .inline{
+            display: inline-block;
+            border: 1px solid #f3f3f3;
+            padding: 1em;
+        }
+        .img{
+            height: 5em;
+            width: 12.75em;
+            overflow: hidden;
+        }
+        .img img{
+            height: 100%;
+            width: 100%;
+            object-fit: cover;
+        }
+
+        .alert-success{
+            background: lightskyblue;
+            color: #000;
+        }
+    </style>
+</body>
+</html>
