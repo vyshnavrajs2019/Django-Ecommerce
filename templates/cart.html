@@ -1,21 +1,23 @@
 {% extends 'base.html' %}
 
 {% block main %}
+<div class="row">
+    {% for i in "1234" %}
 
-{% for i in "1,2,3,4,5,6,7,8,9,0,1,2,3,4" %}
-
-<div class="inline">
-    <div class="img">
-        <img src="https://www.furniturerow.com/fr/images/products/SS-PKRNHB.JPG" alt="Product name">
+    <div class="col product-item">
+        <div class="img">
+            <img src="https://www.furniturerow.com/fr/images/products/SS-PKRNHB.JPG" alt="Product name">
+        </div>
+        <h4 class="mt-1">Product name</h4><br>
+        <small class="mt-1">Price <big><b>500</b></big> Rs</small>
+        <small class="mt-1">Rating: <span>4.6</span></small>
+        <div class="row mt-1">
+            <a href="" class="btn"><small>View item</small></a>
+            &nbsp;&nbsp;
+            <a href="" class="btn"><small>Remove</small></a>
+        </div>
     </div>
-    <br>
-    <small>Product name</small><br>
-    <small>Price <b>500 Rs</b></small><br>
-    <small>Rating: <b>4.3</b></small><br><br>
-    <a href=""><small>View item</small></a>
-    <a href=""><small>Remove from Cart</small></a>
+
+    {% endfor %}
 </div>
-
-{% endfor %}
-
 {% endblock main %}
