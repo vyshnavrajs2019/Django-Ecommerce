@@ -140,6 +140,12 @@ form.auth-form input{
     margin-bottom: 1em;
 }
 
+form.auth-form input[type="checkbox"]{
+    padding: 0.5em;
+    max-width: 2em;
+    margin-top: 0.25em;
+}
+
 form.auth-form button{
     width: 100%;
     background: steelblue;
