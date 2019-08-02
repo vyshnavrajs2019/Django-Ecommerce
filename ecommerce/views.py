@@ -3,6 +3,8 @@ from .forms import UserRegistrationForm
 from django.contrib import messages
 
 def register(request):
+    if request.user.is_authenticated:
+        return redirect('home')
     if request.method == 'POST':
         form = UserRegistrationForm(request.POST)
         if form.is_valid():
@@ -18,3 +20,6 @@ def register(request):
 
 def home(request):
     return render(request, 'search.html')
+
+def cart(request):
+    return render(request, 'cart.html')
