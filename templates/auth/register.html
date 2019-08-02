@@ -8,6 +8,10 @@
         <br>
         {% csrf_token %}
         {{ form.as_p }}
+        <div class="row">
+            <label for="id_is_seller">{{ is_seller_form.is_seller.label }}</label>
+            {{ is_seller_form.is_seller }}
+        </div>
         <button class="btn">Sign Up</button><br><br>
         <small>Have an account <a href="{% url 'login' %}">Login</a></small>
     </form>
