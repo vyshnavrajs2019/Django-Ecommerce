@@ -2,4 +2,5 @@ db.sqlite3
 venv
 .vscode/*
 ecommerce/__pycache__/*
-!**/__pycache__/
+sellers/__pycache__/*
+sellers/migrations/*
