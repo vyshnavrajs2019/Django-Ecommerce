@@ -1,4 +1,5 @@
 db.sqlite3
 venv
-*.pyc
 .vscode/*
+ecommerce/__pycache__/*
+!**/__pycache__/
