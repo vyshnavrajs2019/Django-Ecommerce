@@ -10,20 +10,19 @@
     <header>
         <h2>Django Ecommerce</h2>
         <nav>
+            <a href="{% url 'home' %}"><small>Home</small></a> / 
             {% if user.is_authenticated %}
-            <a href="{% url 'logout' %}">Logout</a> / 
-            <a href="">Sell Items</a> / 
-            <a href="">My Cart</a> / 
-            <a href="">Wishlist</a>
+            <a href="{% url 'cart' %}"><small>My Cart</small></a> /
+            <a href="{% url 'logout' %}"><small>Logout</small></a> 
             {% else %}
-            <a href="{% url 'login' %}">Login</a> / 
-            <a href="{% url 'register' %}">Register</a> / 
+            <a href="{% url 'login' %}"><small>Login</small></a> / 
+            <a href="{% url 'register' %}"><small>Register</small></a>
             {% endif %}
         </nav>
         <br>
         <form method="get">
             <input type="text" name="query" id="query" placeholder="Search">
-            Minimum Price: 
+            <small>Min Price:</small> 
             <select name="minprice">
                 <option value="100">100 Rs</option>
                 <option value="500">500 Rs</option>
@@ -31,7 +30,7 @@
                 <option value="2000">2000 Rs</option>
                 <option value="4000">4000 Rs</option>
             </select>
-            Maximum Price: 
+            <small>Max Price:</small> 
             <select name="maxprice">
                 <option value="100">500 Rs</option>
                 <option value="500">1000 Rs</option>
@@ -39,7 +38,7 @@
                 <option value="2000">4000 Rs</option>
                 <option value="4000">8000 Rs</option>
             </select>
-            Sort By: 
+            <small>Sort By:</small> 
             <select name="sortby">
                 <option value="Price low to high">Price low to high</option>
                 <option value="Price high to low">Price high to low</option>
@@ -59,6 +58,9 @@
         {% endblock main %}
     </main>
     <style>
+        body{
+            padding: 0em 10em;
+        }
         .inline{
             display: inline-block;
             border: 1px solid #f3f3f3;
@@ -66,7 +68,7 @@
         }
         .img{
             height: 5em;
-            width: 12.75em;
+            width: 12.5em;
             overflow: hidden;
         }
         .img img{
