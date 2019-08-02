@@ -2,10 +2,15 @@
 
 {% block main %}
 
-<form method="POST">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Register</button>
-</form>
+<div class="row h-center">
+    <form method="POST" class="auth-form">
+        <h3 class="row h-center">Sign Up</h3>
+        <br>
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button class="btn">Sign Up</button><br><br>
+        <small>Have an account <a href="{% url 'login' %}">Login</a></small>
+    </form>
+</div>
 
 {% endblock main %}

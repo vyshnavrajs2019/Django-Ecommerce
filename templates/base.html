@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Django Ecommerce</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
 </head>
 <body>
     <header>
@@ -20,7 +22,6 @@
             {% endif %}
             
         </nav>
-        <br>
         <form method="get">
             <input type="text" name="query" id="query" placeholder="Search">
             <small>Min Price:</small> 
@@ -47,7 +48,6 @@
             <button type="submit">Search</button>
         </form>
     </header>
-    <hr>
     {% if messages %}
         {% for message in messages %}
             <div style="alert-{{ message.tags }}">{{ message }}</div>
@@ -58,30 +58,5 @@
 
         {% endblock main %}
     </main>
-    <style>
-        body{
-            padding: 0em 10em;
-        }
-        .inline{
-            display: inline-block;
-            border: 1px solid #f3f3f3;
-            padding: 1em;
-        }
-        .img{
-            height: 5em;
-            width: 12.5em;
-            overflow: hidden;
-        }
-        .img img{
-            height: 100%;
-            width: 100%;
-            object-fit: cover;
-        }
-
-        .alert-success{
-            background: lightskyblue;
-            color: #000;
-        }
-    </style>
 </body>
 </html>
