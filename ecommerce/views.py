@@ -1,8 +1,25 @@
 from django.shortcuts import render, redirect
 from .forms import UserRegistrationForm
+from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import messages
 from sellers.forms import CheckSellerForm
 from django.contrib.auth import authenticate, login
+from django.contrib.auth.decorators import login_required
+
+def login_view(request):
+    if request.method == 'POST':
+        form = AuthenticationForm(data = request.POST)
+        if form.is_valid():
+            user = form.get_user()
+            login(request, user)
+            if request.GET.get('next',None) != None:
+                return redirect(request.GET.get('next'))
+            return redirect('home')
+    else:
+        form = AuthenticationForm()
+    return render(request, 'auth/login.html',{
+        'form': form
+    })
 
 def register(request):
     if request.user.is_authenticated:
@@ -20,7 +37,7 @@ def register(request):
             messages.success(request, f'Account created for {username}')
             new_user = authenticate(username = username, password = password)
             login(request, new_user)
-            return redirect('home')
+            return redirect('seller:register')
     else:
         form = UserRegistrationForm()
         is_seller_form = CheckSellerForm(request.POST)
@@ -32,5 +49,6 @@ def register(request):
 def home(request):
     return render(request, 'search.html')
 
+@login_required
 def cart(request):
     return render(request, 'cart.html')

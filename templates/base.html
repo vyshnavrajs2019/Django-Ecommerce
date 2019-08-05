@@ -15,6 +15,7 @@
             <a href="{% url 'home' %}"><small>Home</small></a> / 
             {% if user.is_authenticated %}
             <a href="{% url 'cart' %}"><small>My Cart</small></a> /
+            <a href=""><small>Account</small></a> /
             <a href="{% url 'logout' %}"><small>Logout</small></a> 
             {% else %}
             <a href="{% url 'login' %}"><small>Login</small></a> / 

@@ -1,0 +1,34 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Django Ecommerce</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+    <header>
+        <h2>Django Ecommerce</h2>
+        <nav>
+            <a href="{% url 'home' %}"><small>Home</small></a> / 
+            {% if user.is_authenticated %}
+            <a href=""><small>Account</small></a> /
+            <a href="{% url 'logout' %}"><small>Logout</small></a> 
+            {% else %}
+            <a href="{% url 'login' %}"><small>Login</small></a> / 
+            <a href="{% url 'register' %}"><small>Register</small></a>
+            {% endif %}
+            
+        </nav>
+        
+    </header>
+    
+    <main>
+        {% block main %}
+
+        {% endblock main %}
+    </main>
+</body>
+</html>
