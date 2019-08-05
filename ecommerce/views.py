@@ -14,6 +14,11 @@ def login_view(request):
             login(request, user)
             if request.GET.get('next',None) != None:
                 return redirect(request.GET.get('next'))
+            try:
+                if user.checkseller.is_seller:
+                    return redirect('seller:home')
+            except Exception:
+                pass
             return redirect('home')
     else:
         form = AuthenticationForm()
