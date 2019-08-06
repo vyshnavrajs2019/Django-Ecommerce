@@ -2,7 +2,7 @@
 
 {% block main %}
 <div class="row h-center">
-    <form method="POST" class="auth-form">
+    <form method="POST" class="auth-form" enctype="multipart/form-data">
         <h3 class="row h-center">Add product</h3>
         <br>
         {% csrf_token %}

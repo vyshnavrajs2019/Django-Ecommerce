@@ -3,23 +3,27 @@
 {% block main %}
 <div class="row">
     <div class="row col-75" style="background: #ccc; padding: 0em;">
-    {% for i in "1234" %}
-        <div class="col product-item" style="min-width: calc((100% - 1.5em) / 3); max-width: calc((100% - 1.5em) / 3);">
-            <div class="img">
-                <img src="https://www.furniturerow.com/fr/images/products/SS-PKRNHB.JPG" alt="Product name">
+    {% if products %}
+        {% for product in products %}
+            <div class="col product-item" style="min-width: calc((100% - 1.5em) / 3); max-width: calc((100% - 1.5em) / 3);">
+                <div class="img">
+                    <img src="{{ product.image.url }}" alt="Product name">
+                </div>
+                <h4 class="mt-1">{{ product.name|truncatechars:30}}</h4><br>
+                <small class="mt-1">Price <big><b>{{ product.price }}</b></big> Rs</small>
+                <small class="mt-1">Rating: <span>{{ product.rating }}</span></small>
+                <div class="row mt-1">
+                    <a href="" class="btn"><small>View</small></a>
+                    &nbsp;
+                    <a href="" class="btn"><small>Delete</small></a>
+                    &nbsp;
+                    <a href="" class="btn"><small>Edit</small></a>
+                </div>
             </div>
-            <h4 class="mt-1">Product name</h4><br>
-            <small class="mt-1">Price <big><b>500</b></big> Rs</small>
-            <small class="mt-1">Rating: <span>4.6</span></small>
-            <div class="row mt-1">
-                <a href="" class="btn"><small>View</small></a>
-                &nbsp;
-                <a href="" class="btn"><small>Delete</small></a>
-                &nbsp;
-                <a href="" class="btn"><small>Edit</small></a>
-            </div>
-        </div>
-    {% endfor %}
+        {% endfor %}
+    {% else %}
+        <div class="row">No products available</div>
+    {% endif %}
     </div>
     
     <div class="col col-25">

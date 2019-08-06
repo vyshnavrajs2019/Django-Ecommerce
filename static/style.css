@@ -124,6 +124,7 @@ main{
     min-width: calc((100% - 2em) / 4);
     max-width: calc((100% - 2em) / 4);
     margin-right: 0.5em;
+    align-self: flex-start;
 }
 .product-item .img{
     max-height: 10em;

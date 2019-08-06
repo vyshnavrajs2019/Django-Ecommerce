@@ -12,3 +12,6 @@ class Seller(models.Model):
     location = models.CharField(max_length = 350, blank = False, null = False)
     zipcode = models.CharField(max_length = 6, blank = False, null = False)
     mobile = models.CharField(max_length = 10, blank = False, null = False)
+
+    def __str__(self):
+        return f'{self.company}'
