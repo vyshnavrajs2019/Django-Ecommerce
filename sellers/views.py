@@ -27,3 +27,15 @@ def register_company(request):
 @company_already_registered
 def company_home(request):
     return render(request, 'sellers/home.html')
+
+@login_required
+@is_seller
+@company_already_registered
+def company_products(request):
+    return render(request, 'sellers/products.html')
+
+@login_required
+@is_seller
+@company_already_registered
+def company_add_product(request):
+    return render(request, 'sellers/add_product.html')

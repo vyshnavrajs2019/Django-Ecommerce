@@ -3,6 +3,26 @@
 {% block main %}
 
 <div class="row h-center">
-    <h1>Dashboard</h1>
+    <div class="col col-75">
+        <h4 class="mb-1">Booking History</h4>
+        {% for j in "1,2,3,4,5" %}
+        <div class="col booking-data mb-1">
+            <strong>Red and white stripes T-shirt</strong>
+            <small class="mt-05">Order id: 98321423640723467</small>
+            <small>Product id: <a href="">893475982398</a></small>
+            <small>Booked on : 23-04-2019 12:45 PM</small>
+            <small>Quantities : 2</small>
+            <small>Price : 345/-</small>
+            <div class="row mt-05">
+                <button type="button" class="btn">Place order</button>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <div class="col col-25">
+        <h4 class="mb-1">Console</h4>
+        <small><a href="{% url 'seller:products'%}" class="console-nav row">Products</a></small>
+    </div>
 </div>
+
 {% endblock main %}
