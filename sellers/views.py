@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from .forms import SellerForm
 from .decorators import is_seller, company_already_registered
+from product.forms import ProductForm
 
 @login_required
 @is_seller
@@ -38,4 +39,13 @@ def company_products(request):
 @is_seller
 @company_already_registered
 def company_add_product(request):
-    return render(request, 'sellers/add_product.html')
+    if request.method == 'POST':
+        form = ProductForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('seller:products')
+    else:
+        form = ProductForm()
+    return render(request, 'sellers/add_product.html', {
+        'form': form
+    })

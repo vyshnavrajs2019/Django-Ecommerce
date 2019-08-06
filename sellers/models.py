@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 class CheckSeller(models.Model):
     user = models.OneToOneField(User, on_delete = models.CASCADE)
     is_seller = models.BooleanField(verbose_name = 'seller', default = False)
-
+    
 
 class Seller(models.Model):
     owner = models.ForeignKey(User, on_delete = models.CASCADE)

@@ -147,7 +147,8 @@ form.auth-form label{
     font-size: 0.85em;
 }
 
-form.auth-form input{
+form.auth-form input,
+form.auth-form textarea{
     border-radius: 0em;
     padding: 0.5em 1em;
     border: 1px solid #ccc;
