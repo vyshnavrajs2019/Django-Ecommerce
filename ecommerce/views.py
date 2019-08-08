@@ -70,13 +70,16 @@ def home(request, *args, **kwargs):
 
 @login_required
 def cart(request, *args, **kwargs):
-    return render(request, 'cart.html')
+    cart_items = Cart.objects.filter(owner = request.user)
+    return render(request, 'cart.html', {
+        'cart_items': cart_items
+    })
 
 @login_required
 def add_cart(request, *args, **kwargs):
     pid = kwargs.get('id')
     pdt = Product.objects.filter(pk = pid).first()
-    next_url = kwargs.get('next')
+    next_url = request.GET.get('next')
     if pdt:
         if Cart.objects.filter(owner = request.user, product = pdt).first():
             return redirect(next_url or 'home')
@@ -88,7 +91,7 @@ def add_cart(request, *args, **kwargs):
 def rem_cart(request, *args, **kwargs):
     pid = kwargs.get('id')
     pdt = Product.objects.filter(pk = pid).first()
-    next_url = kwargs.get('next')
+    next_url = request.GET.get('next')
     if pdt:
         cart = Cart.objects.filter(owner = request.user, product = pdt).first()
         if cart:
