@@ -2,21 +2,25 @@
 
 {% block main %}
 <div class="row">
-    {% for i in "1,2,3,4,5,6,7,8,9,0,1,2,3,4" %}
+    {% for product_obj in products %}
 
     <div class="col product-item">
         <div class="img">
-            <img src="https://www.furniturerow.com/fr/images/products/SS-PKRNHB.JPG" alt="Product name">
+            <img src="{{ product_obj.product.image.url }}" alt="Product name">
         </div>
-        <h4 class="mt-1">Product name</h4><br>
-        <small class="mt-1">Price <big><b>500</b></big> Rs</small>
-        <small class="mt-1">Rating: <span>4.6</span></small>
+        <h4 class="mt-1">{{ product_obj.product.name|truncatechars:45 }}</h4><br>
+        <small class="mt-1">Price <big><b>{{ product_obj.product.price }}</b></big> Rs</small>
+        <small class="mt-1">Rating: <span>{{ product_obj.product.rating }}</span></small>
         <div class="row mt-1">
-            <a href="" class="btn"><small>View item</small></a>
+            <a href="" class="btn"><small>View</small></a>
             {% if user.is_authenticated %}
             &nbsp;&nbsp;
-            <a href="" class="btn"><small>Add to Cart</small></a>
+            {% if product_obj.in_cart %}
+                <a href="{{ product_obj.product.get_rem_cart_url }}" class="btn"><small>Added to Cart</small></a>
+            {% else %}
+                <a href="{{ product_obj.product.get_add_cart_url }}" class="btn"><small>Add to Cart</small></a>
             {% endif %}
+            {%endif%}
         </div>
     </div>
 

@@ -5,6 +5,8 @@ from django.contrib import messages
 from sellers.forms import CheckSellerForm
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
+from product.models import Product
+from user.models import Cart
 
 def login_view(request, *args, **kwargs):
     if request.user.is_authenticated:
@@ -54,8 +56,42 @@ def register(request, *args, **kwargs):
     })
 
 def home(request, *args, **kwargs):
-    return render(request, 'search.html')
+    pdts = Product.objects.filter(rating__gte = 0)
+    pdts_ = []
+    for pdt in pdts:
+        obj = {'product': pdt, 'in_cart': False}
+        if request.user.is_authenticated:
+            if Cart.objects.filter(owner = request.user, product = pdt).first():
+                obj['in_cart'] = True
+        pdts_.append(obj)
+    return render(request, 'search.html', {
+        'products': pdts_
+    })
 
 @login_required
 def cart(request, *args, **kwargs):
     return render(request, 'cart.html')
+
+@login_required
+def add_cart(request, *args, **kwargs):
+    pid = kwargs.get('id')
+    pdt = Product.objects.filter(pk = pid).first()
+    next_url = kwargs.get('next')
+    if pdt:
+        if Cart.objects.filter(owner = request.user, product = pdt).first():
+            return redirect(next_url or 'home')
+        cart = Cart(owner = request.user, product = pdt)
+        cart.save()
+    return redirect(next_url or 'home')
+
+@login_required
+def rem_cart(request, *args, **kwargs):
+    pid = kwargs.get('id')
+    pdt = Product.objects.filter(pk = pid).first()
+    next_url = kwargs.get('next')
+    if pdt:
+        cart = Cart.objects.filter(owner = request.user, product = pdt).first()
+        if cart:
+            cart.delete()
+    return redirect(next_url or 'home')
+

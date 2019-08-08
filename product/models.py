@@ -43,5 +43,11 @@ class Product(models.Model):
     def get_edit_url(self):
         return reverse('seller:edit-product', kwargs = {'pid': self.id})
 
+    def get_add_cart_url(self):
+        return reverse('cart-add', kwargs = {'id': self.id})
+
+    def get_rem_cart_url(self):
+        return reverse('cart-remove', kwargs = {'id': self.id})
+
     def __str__(self):
         return f'{self.name}, {self.size}'
