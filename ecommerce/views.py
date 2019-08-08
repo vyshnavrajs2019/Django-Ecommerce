@@ -6,7 +6,7 @@ from sellers.forms import CheckSellerForm
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 
-def login_view(request):
+def login_view(request, *args, **kwargs):
     if request.user.is_authenticated:
         return redirect('home')
     if request.method == 'POST':
@@ -28,7 +28,7 @@ def login_view(request):
         'form': form
     })
 
-def register(request):
+def register(request, *args, **kwargs):
     if request.user.is_authenticated:
         return redirect('home')
     if request.method == 'POST':
@@ -53,9 +53,9 @@ def register(request):
         'is_seller_form': is_seller_form
     })
 
-def home(request):
+def home(request, *args, **kwargs):
     return render(request, 'search.html')
 
 @login_required
-def cart(request):
+def cart(request, *args, **kwargs):
     return render(request, 'cart.html')

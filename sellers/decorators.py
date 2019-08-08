@@ -7,7 +7,7 @@ def is_seller(func):
         user = request.user
         try:
             if user.checkseller.is_seller:
-                return func(request)
+                return func(request, *args, **kwargs)
             return redirect('home')
         except Exception:
             return redirect('home')
@@ -19,5 +19,5 @@ def company_already_registered(func):
         user = request.user
         if len(user.seller_set.all()) == 0:
             return redirect('seller:register')
-        return func(request)
+        return func(request, *args, **kwargs)
     return decor

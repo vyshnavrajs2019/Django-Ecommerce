@@ -1,5 +1,6 @@
 from django.db import models
 from sellers.models import Seller
+from django.shortcuts import reverse
 
 # shirts / tshirts
 SHIRT_SIZES = [
@@ -35,6 +36,9 @@ class Product(models.Model):
     quantity = models.IntegerField()
     image = models.ImageField(upload_to = 'product-img')
     company = models.ForeignKey(Seller, on_delete = models.CASCADE)
+
+    def get_del_url(self):
+        return reverse('seller:delete-product', kwargs={'pid':self.id})
 
     def __str__(self):
         return f'{self.name}, {self.size}'

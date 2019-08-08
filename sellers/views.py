@@ -9,7 +9,7 @@ from django.conf.urls.static import static
 
 @login_required
 @is_seller
-def register_company(request):
+def register_company(request, *args, **kwargs):
     user = request.user
     if len(user.seller_set.all()):
         return redirect('seller:home')
@@ -29,13 +29,13 @@ def register_company(request):
 @login_required
 @is_seller
 @company_already_registered
-def company_home(request):
+def company_home(request, *args, **kwargs):
     return render(request, 'sellers/home.html')
 
 @login_required
 @is_seller
 @company_already_registered
-def company_products(request):
+def company_products(request, *args, **kwargs):
     try:
         products = request.user.seller_set.all().first().product_set.all()
     except Exception:
@@ -48,7 +48,7 @@ def company_products(request):
 @login_required
 @is_seller
 @company_already_registered
-def company_add_product(request):
+def company_add_product(request, *args, **kwargs):
     if request.method == 'POST':
         form = ProductForm(data = request.POST, files = request.FILES)
         if form.is_valid():
@@ -61,3 +61,14 @@ def company_add_product(request):
     return render(request, 'sellers/add_product.html', {
         'form': form
     })
+
+@login_required
+@is_seller
+@company_already_registered
+def company_delete_product(request, *args, **kwargs):
+    pid = kwargs.get('pid')
+    if request.method == 'GET':
+        user = request.user
+        pdt = Product.objects.get(pk=pid)
+        pdt.delete()
+        return redirect('seller:products')
