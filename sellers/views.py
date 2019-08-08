@@ -9,7 +9,7 @@ from django.conf.urls.static import static
 
 @login_required
 @is_seller
-def register_company(request, *args, **kwargs):
+def register(request, *args, **kwargs):
     user = request.user
     if len(user.seller_set.all()):
         return redirect('seller:home')
@@ -29,13 +29,13 @@ def register_company(request, *args, **kwargs):
 @login_required
 @is_seller
 @company_already_registered
-def company_home(request, *args, **kwargs):
+def home(request, *args, **kwargs):
     return render(request, 'sellers/home.html')
 
 @login_required
 @is_seller
 @company_already_registered
-def company_products(request, *args, **kwargs):
+def products(request, *args, **kwargs):
     try:
         products = request.user.seller_set.all().first().product_set.all()
     except Exception:
@@ -48,7 +48,7 @@ def company_products(request, *args, **kwargs):
 @login_required
 @is_seller
 @company_already_registered
-def company_add_product(request, *args, **kwargs):
+def add_view(request, *args, **kwargs):
     if request.method == 'POST':
         form = ProductForm(data = request.POST, files = request.FILES)
         if form.is_valid():
@@ -65,10 +65,38 @@ def company_add_product(request, *args, **kwargs):
 @login_required
 @is_seller
 @company_already_registered
-def company_delete_product(request, *args, **kwargs):
+def delete_view(request, *args, **kwargs):
+    user = request.user
     pid = kwargs.get('pid')
-    if request.method == 'GET':
-        user = request.user
-        pdt = Product.objects.get(pk=pid)
+    pdt = Product.objects.get(pk=pid)
+    if pdt.company.owner != user:
+        return redirect('seller:products')
+    
+    if request.method == 'POST':
         pdt.delete()
         return redirect('seller:products')
+    
+    return render(request, 'sellers/delete_product.html', {
+            'product': pdt
+        })
+
+@login_required
+@is_seller
+@company_already_registered
+def edit_view(request, *args, **kwargs):
+    user = request.user
+    pid = kwargs.get('pid')
+    pdt = Product.objects.get(pk=pid)
+    if pdt.company.owner != user:
+        return redirect('seller:products')
+
+    if request.method == 'POST':
+        form = ProductForm(data = request.POST, files = request.FILES, instance = pdt)
+        if form.is_valid():
+            form.save()
+            return redirect('seller:products')
+    else:
+        form = ProductForm(instance = pdt)
+    return render(request, 'sellers/add_product.html', {
+        'form': form
+    })

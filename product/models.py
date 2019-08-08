@@ -40,5 +40,8 @@ class Product(models.Model):
     def get_del_url(self):
         return reverse('seller:delete-product', kwargs={'pid':self.id})
 
+    def get_edit_url(self):
+        return reverse('seller:edit-product', kwargs = {'pid': self.id})
+
     def __str__(self):
         return f'{self.name}, {self.size}'
