@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block main %}
+
+<div class="row">
+    <div class="col img product-img mr-1">
+        <img src="{{ product.image.url }}" alt="{{ product.image.url }}">
+    </div>
+    <div class="col product-detail" style="padding: 1em; background: #f3f3f3;">
+        <h5>{{ product.name }}</h5>
+        <div class="mt-2">
+            <span>In stock: {{ product.quantity }}</span>
+            &nbsp;&nbsp;&nbsp;
+            <a href="{{ product.get_buy_url }}" class="btn"><small>Buy Now</small></a>
+        </div>
+        <b class="mt-2">Description</b>
+        <div class="mt-05 pdt-description">
+            {{ product.description|linebreaks }}
+        </div>
+        <b class="mt-2">Price</b>
+        <div class="mt-05">Rs {{ product.price }}</div>
+        <b class="mt-2">Specifications</b>
+        <div class="mt-05">
+            <p>Color: {{ product.color }}</p>
+            <p>Material: {{ product.material }}</p>
+            <p>Size: {{ product.size }}</p>
+            <p>Category: {{ product.dress_type }}</p>
+        </div>
+        <b class="mt-2">Other</b>
+        <div class="mt-05">
+            <p>Company: {{ product.company.company }}</p>
+            <p>Location: {{ product.company.location }}</p>
+        </div>
+    </div>
+</div>
+
+{% endblock main %}

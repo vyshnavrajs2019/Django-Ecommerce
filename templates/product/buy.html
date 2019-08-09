@@ -1,0 +1,14 @@
+{% extends 'base2.html' %}
+
+{% block main %}
+
+<div class="row h-center">
+    <form method="POST" class="auth-form">
+        <h3 class="row h-center">Buy Product</h3>
+        <br>
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button class="btn">Confirm</button><br><br>
+    </form>
+</div>
+{% endblock main %}
