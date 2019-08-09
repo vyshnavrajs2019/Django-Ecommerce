@@ -14,7 +14,7 @@
         <nav>
             <a href="{% url 'home' %}"><small>Home</small></a> / 
             {% if user.is_authenticated %}
-            <a href=""><small>Account</small></a> /
+            <a href="{% url 'order' %}"><small>Orders</small></a> /
             <a href="{% url 'logout' %}"><small>Logout</small></a> 
             {% else %}
             <a href="{% url 'login' %}"><small>Login</small></a> / 
@@ -24,7 +24,11 @@
         </nav>
         
     </header>
-    
+    {% if messages %}
+        {% for message in messages %}
+            <div class="row h-center flash-msg alert-{{ message.tags }}">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
     <main>
         {% block main %}
 

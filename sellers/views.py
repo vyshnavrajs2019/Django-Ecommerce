@@ -1,11 +1,14 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from .forms import SellerForm
+from product.models import Order
 from .decorators import is_seller, company_already_registered
 from product.forms import ProductForm
 from product.models import Product
 from django.conf import settings
 from django.conf.urls.static import static
+from django.contrib import messages
+from django.contrib.auth.models import User
 
 @login_required
 @is_seller
@@ -30,7 +33,24 @@ def register(request, *args, **kwargs):
 @is_seller
 @company_already_registered
 def home(request, *args, **kwargs):
-    return render(request, 'sellers/home.html')
+    orders = Order.objects.filter(seller = request.user.seller_set.all().first())
+    return render(request, 'sellers/home.html', {
+        'orders': orders
+    })
+
+@login_required
+@is_seller
+@company_already_registered
+def place_order(request, *args, **kwargs):
+    oid = kwargs.get('id')
+    order = Order.objects.filter(pk = oid).first()
+    if not order:
+        messages.error(request, f'No such order exists.')
+        return redirect('seller:home')
+    order.is_placed = True
+    order.save()
+    messages.success(request, f'Order, id {oid}, placed successfully')
+    return redirect('seller:home')
 
 @login_required
 @is_seller

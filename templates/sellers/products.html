@@ -13,7 +13,7 @@
                 <small class="mt-1">Price <big><b>{{ product.price }}</b></big> Rs</small>
                 <small class="mt-1">Rating: <span>{{ product.rating }}</span></small>
                 <div class="row mt-1">
-                    <a href="" class="btn"><small>View</small></a>
+                    <a href="{{ product.get_pdt_url }}" class="btn"><small>View</small></a>
                     &nbsp;
                     <a href="{{ product.get_del_url }}" class="btn"><small>Delete</small></a>
                     &nbsp;

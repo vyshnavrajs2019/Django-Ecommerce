@@ -5,17 +5,28 @@
 <div class="row h-center">
     <div class="col col-75">
         <h4 class="mb-1">Booking History</h4>
-        {% for j in "1,2,3,4,5" %}
+        {% if not orders %}
+        <div class="row mb-1">
+            You have no pending bookings.
+        </div>
+        {% endif %}
+        {% for order in orders %}
         <div class="col booking-data mb-1">
-            <strong>Red and white stripes T-shirt</strong>
-            <small class="mt-05">Order id: 98321423640723467</small>
-            <small>Product id: <a href="">893475982398</a></small>
-            <small>Booked on : 23-04-2019 12:45 PM</small>
+            <strong><a href="{{ order.product.get_pdt_url }}">{{ order.product.name }}</a></strong>
+            <small class="mt-05">Order id: {{ order.id }}</small>
+            <small>Product id: {{ order.product.id }}</small>
+            <small>Booked on : {{ order.ordered_on }}</small>
             <small>Quantities : 2</small>
-            <small>Price : 345/-</small>
-            <div class="row mt-05">
-                <button type="button" class="btn">Place order</button>
+            <small>Price : Rs {{ order.product.price }}</small>
+            {% if not order.is_placed %}
+            <div class="mt-1 mb-1">
+                <a href="{{ order.get_place_url }}" class="btn"><small>Place order</small></a>
             </div>
+            {% else %}
+            <div class="mt-1 mb-1">
+                <small>Order placed</small>
+            </div>
+            {% endif %}
         </div>
         {% endfor %}
     </div>

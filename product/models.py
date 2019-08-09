@@ -1,6 +1,8 @@
 from django.db import models
 from sellers.models import Seller
 from django.shortcuts import reverse
+from django.contrib.auth.models import User
+from datetime import datetime
 
 # shirts / tshirts
 SHIRT_SIZES = [
@@ -37,6 +39,12 @@ class Product(models.Model):
     image = models.ImageField(upload_to = 'product-img')
     company = models.ForeignKey(Seller, on_delete = models.CASCADE)
 
+    def get_buy_url(self):
+        return reverse('product:buy', kwargs = {'id': self.id})
+
+    def get_pdt_url(self):
+        return reverse('product:detail', kwargs = {'id': self.id})
+
     def get_del_url(self):
         return reverse('seller:delete-product', kwargs={'pid':self.id})
 
@@ -51,3 +59,21 @@ class Product(models.Model):
 
     def __str__(self):
         return f'{self.name}, {self.size}'
+
+
+class Order(models.Model):
+    customer = models.ForeignKey(User, on_delete = models.CASCADE)
+    location = models.CharField(max_length = 250)
+    product = models.ForeignKey(Product, on_delete = models.CASCADE)
+    seller = models.ForeignKey(Seller, on_delete = models.CASCADE)
+    ordered_on = models.DateTimeField(default = datetime.now)
+    is_placed = models.BooleanField(default = False)
+
+    def get_place_url(self):
+        return reverse('seller:place-order', kwargs = {'id': self.id})
+
+    def get_del_url(self):
+        return reverse('order-remove', kwargs = {'id': self.id})
+
+    def __str__(self):
+        return f'Order({self.id})'

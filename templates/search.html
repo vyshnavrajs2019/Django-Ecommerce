@@ -12,7 +12,7 @@
         <small class="mt-1">Price <big><b>{{ product_obj.product.price }}</b></big> Rs</small>
         <small class="mt-1">Rating: <span>{{ product_obj.product.rating }}</span></small>
         <div class="row mt-1">
-            <a href="" class="btn"><small>View</small></a>
+            <a href="{{ product_obj.product.get_pdt_url }}" class="btn"><small>View</small></a>
             {% if user.is_authenticated %}
             &nbsp;&nbsp;
             {% if product_obj.in_cart %}

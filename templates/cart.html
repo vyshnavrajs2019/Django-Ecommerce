@@ -14,7 +14,7 @@
         <small class="mt-1">Price <big><b>{{ cart.product.price }}</b></big> Rs</small>
         <small class="mt-1">Rating: <span>{{ cart.product.rating }}</span></small>
         <div class="row mt-1">
-            <a href="" class="btn"><small>View</small></a>
+            <a href="{{ cart.product.get_pdt_url }}" class="btn"><small>View</small></a>
             &nbsp;&nbsp;
             <a href="{{ cart.product.get_rem_cart_url }}?next=/cart/" class="btn"><small>Remove</small></a>
         </div>

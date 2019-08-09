@@ -5,7 +5,7 @@ from django.contrib import messages
 from sellers.forms import CheckSellerForm
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
-from product.models import Product
+from product.models import Product, Order
 from user.models import Cart
 
 def login_view(request, *args, **kwargs):
@@ -98,3 +98,21 @@ def rem_cart(request, *args, **kwargs):
             cart.delete()
     return redirect(next_url or 'home')
 
+@login_required
+def order(request):
+    orders = Order.objects.filter(customer = request.user)
+    return render(request, 'orders.html', {
+        'orders': orders
+    })
+
+@login_required
+def delete_order(request, id):
+    order = Order.objects.filter(id = id).first()
+
+    if order and order.customer == request.user and not order.is_placed:
+        order.delete()
+        messages.success(request, f'You have canceled ordering {order.product.name}')
+        return redirect('order')
+    else:
+        messages.error(request, f'You tried to cancel an order that is either placed or you not ordered.')
+        return redirect('home')
