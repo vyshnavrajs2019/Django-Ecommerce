@@ -7,6 +7,7 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from product.models import Product, Order
 from user.models import Cart
+from django.db.models import Q
 
 def login_view(request, *args, **kwargs):
     if request.user.is_authenticated:
@@ -82,7 +83,7 @@ def search(request, *args, **kwargs):
                 raise Exception
             if sort_by not in ['price-low-to-high', 'price-high-to-low']:
                 raise Exception
-            print(query, min_price, max_price, sort_by)
+            
             # get the data
             q1 = Q(name__icontains = query)
             q2 = Q(description__icontains = query)
@@ -91,16 +92,16 @@ def search(request, *args, **kwargs):
             q5 = Q(price__lte = max_price)
 
             if sort_by == 'price-low-to-high':
-                sort_by = 'price'
+                sort_by_ = 'price'
             else:
-                sort_by = '-price'
+                sort_by_ = '-price'
+
+            print(sort_by)
 
             products = Product.objects.filter(
                 (q1 | q2 | q3) & q4 & q5 
-            ).order_by(sort_by).order_by('-rating')
-
-            print(products)
-
+            ).order_by(sort_by_)
+            
             pdts_ = []
             for pdt in products:
                 obj = {'product': pdt, 'in_cart': False}
