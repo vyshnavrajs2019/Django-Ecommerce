@@ -96,12 +96,10 @@ def search(request, *args, **kwargs):
             else:
                 sort_by_ = '-price'
 
-            print(sort_by)
-
             products = Product.objects.filter(
                 (q1 | q2 | q3) & q4 & q5 
             ).order_by(sort_by_)
-            
+
             pdts_ = []
             for pdt in products:
                 obj = {'product': pdt, 'in_cart': False}
@@ -132,6 +130,7 @@ def add_cart(request, *args, **kwargs):
     pid = kwargs.get('id')
     pdt = Product.objects.filter(pk = pid).first()
     next_url = request.GET.get('next')
+    print(next_url)
     if pdt:
         if Cart.objects.filter(owner = request.user, product = pdt).first():
             return redirect(next_url or 'home')

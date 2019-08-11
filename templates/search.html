@@ -16,9 +16,9 @@
             {% if user.is_authenticated %}
             &nbsp;&nbsp;
             {% if product_obj.in_cart %}
-                <a href="{{ product_obj.product.get_rem_cart_url }}" class="btn"><small>Added to Cart</small></a>
+                <a href="{{ product_obj.product.get_rem_cart_url }}{% if query %}?next={% url 'search' %}&#63;query={{query}}%26min_price={{min_price}}%26max_price={{max_price}}%26sort_by={{sort_by}}{% else %}{% endif %}" class="btn"><small>Added to Cart</small></a>
             {% else %}
-                <a href="{{ product_obj.product.get_add_cart_url }}" class="btn"><small>Add to Cart</small></a>
+                <a href="{{ product_obj.product.get_add_cart_url }}{% if query %}?next={% url 'search' %}&#63;query={{query}}%26min_price={{min_price}}%26max_price={{max_price}}%26sort_by={{sort_by}}{% else %}{% endif %}" class="btn"><small>Add to Cart</small></a>
             {% endif %}
             {%endif%}
         </div>
