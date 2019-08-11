@@ -23,28 +23,28 @@
             {% endif %}
             
         </nav>
-        <form method="get">
-            <input type="text" name="query" id="query" placeholder="Search">
+        <form method="get" action="{% url 'search' %}">
+            <input type="text" name="query" id="query" placeholder="Search" value="{{ query }}">
             <small>Min Price:</small> 
-            <select name="minprice">
-                <option value="100">100 Rs</option>
-                <option value="500">500 Rs</option>
-                <option value="1000">1000 Rs</option>
-                <option value="2000">2000 Rs</option>
-                <option value="4000">4000 Rs</option>
+            <select name="min_price">
+                <option value="100" {% ifequal min_price 100  %}selected{% else %}{% endifequal %}>100 Rs</option>
+                <option value="500" {% ifequal min_price 500  %}selected{% else %}{% endifequal %}>500 Rs</option>
+                <option value="1000" {% ifequal min_price 1000  %}selected{% else %}{% endifequal %}>1000 Rs</option>
+                <option value="2000" {% ifequal min_price 2000  %}selected{% else %}{% endifequal %}>2000 Rs</option>
+                <option value="4000" {% ifequal min_price 4000  %}selected{% else %}{% endifequal %}>4000 Rs</option>
             </select>
             <small>Max Price:</small> 
-            <select name="maxprice">
-                <option value="100">500 Rs</option>
-                <option value="500">1000 Rs</option>
-                <option value="1000">2000 Rs</option>
-                <option value="2000">4000 Rs</option>
-                <option value="4000">8000 Rs</option>
+            <select name="max_price">
+                <option value="500" {% ifequal max_price 500  %}selected{% else %}{% endifequal %}>500 Rs</option>
+                <option value="1000" {% ifequal max_price 1000  %}selected{% else %}{% endifequal %}>1000 Rs</option>
+                <option value="2000" {% ifequal max_price 2000  %}selected{% else %}{% endifequal %}>2000 Rs</option>
+                <option value="4000" {% ifequal max_price 4000  %}selected{% else %}{% endifequal %}>4000 Rs</option>
+                <option value="8000" {% ifequal max_price 8000  %}selected{% else %}{% endifequal %}>8000 Rs</option>
             </select>
             <small>Sort By:</small> 
-            <select name="sortby">
-                <option value="Price low to high">Price low to high</option>
-                <option value="Price high to low">Price high to low</option>
+            <select name="sort_by">
+                <option value='price-low-to-high' {% ifequal sort_by 'price-low-to-high'  %}selected{% else %}{% endifequal %}>Price low to high</option>
+                <option value='price-high-to-low' {% ifequal sort_by 'price-high-to-low'  %}selected{% else %}{% endifequal %}>Price high to low</option>
             </select>
             <button type="submit">Search</button>
         </form>

@@ -1,13 +1,14 @@
 from django.contrib import admin
 from django.contrib.auth import views as auth_view
 from django.urls import path, include
-from .views import home, register, cart, login_view, add_cart, rem_cart, order, delete_order
+from .views import home, search, register, cart, login_view, add_cart, rem_cart, order, delete_order
 from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', home, name = 'home'),
+    path('search/', search, name = 'search'),
     path('register/', register, name = 'register'),
     path('login/', login_view, name = 'login'),
     path('logout/', auth_view.LogoutView.as_view(next_page = 'home'), name = 'logout'),

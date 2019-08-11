@@ -68,6 +68,57 @@ def home(request, *args, **kwargs):
         'products': pdts_
     })
 
+def search(request, *args, **kwargs):
+    if request.method == 'GET':
+        try:
+            query = request.GET.get('query')
+            min_price = int(request.GET.get('min_price') or 100)
+            max_price = int(request.GET.get('max_price') or 2000)
+            sort_by = request.GET.get('sort_by') or 'price-low-to-high'
+            # check query string
+            if not query:
+                raise Exception
+            if min_price > max_price:
+                raise Exception
+            if sort_by not in ['price-low-to-high', 'price-high-to-low']:
+                raise Exception
+            print(query, min_price, max_price, sort_by)
+            # get the data
+            q1 = Q(name__icontains = query)
+            q2 = Q(description__icontains = query)
+            q3 = Q(material__icontains = query)
+            q4 = Q(price__gte = min_price)
+            q5 = Q(price__lte = max_price)
+
+            if sort_by == 'price-low-to-high':
+                sort_by = 'price'
+            else:
+                sort_by = '-price'
+
+            products = Product.objects.filter(
+                (q1 | q2 | q3) & q4 & q5 
+            ).order_by(sort_by).order_by('-rating')
+
+            print(products)
+
+            pdts_ = []
+            for pdt in products:
+                obj = {'product': pdt, 'in_cart': False}
+                if request.user.is_authenticated:
+                    if Cart.objects.filter(owner = request.user, product = pdt).first():
+                        obj['in_cart'] = True
+                pdts_.append(obj)
+            return render(request, 'search.html', {
+                'products': pdts_,
+                'query': query,
+                'min_price': min_price,
+                'max_price': max_price,
+                'sort_by': sort_by
+            })
+
+        except Exception:
+            return redirect('home')
+
 @login_required
 def cart(request, *args, **kwargs):
     cart_items = Cart.objects.filter(owner = request.user)
