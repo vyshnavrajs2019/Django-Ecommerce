@@ -23,6 +23,11 @@ def buy_view(request, id):
         if form.is_valid():
             form = form.save(commit = False)
             form.customer = request.user
+            if pdt.quantity <= 0:
+                messages.error(request, f'Product, {pdt.name}, is not in stock.')
+                return redirect('product:detail', id=id)
+            pdt.quantity -= 1
+            pdt.save()
             form.product = pdt
             form.seller = pdt.company
             form.save()

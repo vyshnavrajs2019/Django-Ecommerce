@@ -57,7 +57,9 @@ def register(request, *args, **kwargs):
     })
 
 def home(request, *args, **kwargs):
-    pdts = Product.objects.filter(rating__gte = 0)
+    q1 = Q(rating__gte = 0)
+    q2 = Q(quantity__gte = 1)
+    pdts = Product.objects.filter(q1 & q2)
     pdts_ = []
     for pdt in pdts:
         obj = {'product': pdt, 'in_cart': False}
@@ -90,6 +92,7 @@ def search(request, *args, **kwargs):
             q3 = Q(material__icontains = query)
             q4 = Q(price__gte = min_price)
             q5 = Q(price__lte = max_price)
+            q6 = Q(quantity__gte = 1)
 
             if sort_by == 'price-low-to-high':
                 sort_by_ = 'price'
@@ -97,7 +100,7 @@ def search(request, *args, **kwargs):
                 sort_by_ = '-price'
 
             products = Product.objects.filter(
-                (q1 | q2 | q3) & q4 & q5 
+                (q1 | q2 | q3) & q4 & q5 & q6
             ).order_by(sort_by_)
 
             pdts_ = []
@@ -161,6 +164,8 @@ def delete_order(request, id):
     order = Order.objects.filter(id = id).first()
 
     if order and order.customer == request.user and not order.is_placed:
+        order.product.quantity += 1
+        order.product.save()
         order.delete()
         messages.success(request, f'You have canceled ordering {order.product.name}')
         return redirect('order')
