@@ -2,32 +2,32 @@
 
 {% block main %}
 
-<div class="row">
-    <div class="col img product-img mr-1">
+<div class="row mt-1 ml-1 mr-1 mb-1 bg-light">
+    <div class="col sm-12 md-12 lg-4 img product-img p-1">
         <img src="{{ product.image.url }}" alt="{{ product.image.url }}">
     </div>
-    <div class="col product-detail" style="padding: 1em; background: #f3f3f3;">
-        <h5>{{ product.name }}</h5>
-        <div class="mt-2">
-            <span>In stock: {{ product.quantity }}</span>
+    <div class="col sm-12 md-12 lg-8 product-detail p-1">
+        <h2>{{ product.name }}</h2>
+        <div class="row v-center sm-12 mt-2">
+            <small>In stock: {{ product.quantity }}</small>
             &nbsp;&nbsp;&nbsp;
-            <a href="{{ product.get_buy_url }}" class="btn"><small>Buy Now</small></a>
+            <a href="{{ product.get_buy_url }}" class="btn btn-sm btn-p"><small>Buy Now</small></a>
         </div>
         <b class="mt-2">Description</b>
-        <div class="mt-05 pdt-description">
+        <div class="mt-1">
             {{ product.description|linebreaks }}
         </div>
         <b class="mt-2">Price</b>
-        <div class="mt-05">Rs {{ product.price }}</div>
+        <div class="mt-1">Rs {{ product.price }}</div>
         <b class="mt-2">Specifications</b>
-        <div class="mt-05">
+        <div class="mt-1">
             <p>Color: {{ product.color }}</p>
             <p>Material: {{ product.material }}</p>
             <p>Size: {{ product.size }}</p>
             <p>Category: {{ product.dress_type }}</p>
         </div>
         <b class="mt-2">Other</b>
-        <div class="mt-05">
+        <div class="mt-1">
             <p>Company: {{ product.company.company }}</p>
             <p>Location: {{ product.company.location }}</p>
         </div>

@@ -5,33 +5,38 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Django Ecommerce</title>
     <link rel="stylesheet" href="{% static 'style.css' %}">
+    <link rel="stylesheet" href="{% static 'main.css' %}">
+    <title>Ecommerce</title>
 </head>
 <body>
-    <header>
-        <h2>Django Ecommerce</h2>
-        <nav>
-            <a href="{% url 'home' %}"><small>Home</small></a> / 
+    <div class="row p-1" id="header">
+        <div class="col sm-6 md-3">
+            <h3>Ecommerce</h3>
+        </div>
+        <div class="row hide-sm md-9 visible-md">
+            <a href="{% url 'home' %}"><small>Home</small></a>
             {% if user.is_authenticated %}
-            <a href="{% url 'order' %}"><small>Orders</small></a> /
+            <a href="{% url 'cart' %}"><small>My Cart</small></a>
+            <a href="{% url 'order' %}"><small>Orders</small></a>
             <a href="{% url 'logout' %}"><small>Logout</small></a> 
             {% else %}
-            <a href="{% url 'login' %}"><small>Login</small></a> / 
+            <a href="{% url 'login' %}"><small>Login</small></a>
             <a href="{% url 'register' %}"><small>Register</small></a>
             {% endif %}
-            
-        </nav>
-        
-    </header>
+        </div>
+        <div class="row sm-6 hide-md">
+            nav
+        </div>
+    </div>
     {% if messages %}
         {% for message in messages %}
-            <div class="row h-center flash-msg alert-{{ message.tags }}">{{ message }}</div>
+            <div class="row h-center v-center flash-msg alert-{{ message.tags }} p-1">{{ message }}</div>
         {% endfor %}
     {% endif %}
     <main>
         {% block main %}
-
+    
         {% endblock main %}
     </main>
 </body>

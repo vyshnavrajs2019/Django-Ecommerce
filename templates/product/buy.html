@@ -2,13 +2,16 @@
 
 {% block main %}
 
-<div class="row h-center">
-    <form method="POST" class="auth-form">
+<div class="row mt-1 pl-1 pr-1">
+    <div class="col sm-12 md-4"></div>
+    <form method="POST" class="col sm-12 md-4 p-1 bg-light">
         <h3 class="row h-center">Buy Product</h3>
         <br>
         {% csrf_token %}
-        {{ form.as_p }}
-        <button class="btn">Confirm</button><br><br>
+        <label for="location" class="form-label mt-1 mb-1">{{ form.location.label }}</label>
+        {{ form.location }}
+        <button class="btn btn-sm btn-p">Confirm</button><br><br>
     </form>
+    <div class="col sm-12 md-4"></div>
 </div>
 {% endblock main %}

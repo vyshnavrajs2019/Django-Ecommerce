@@ -2,16 +2,20 @@
 
 {% block main %}
 
-<div class="row h-center">
-    <div class="col col-75">
-        <h4 class="mb-1">Booking History</h4>
+<div class="row m-1">
+    <div class="col sm-12 lg-3 p-1 v-start">
+        <h4 class="mb-1">Console</h4>
+        <small><a href="{% url 'seller:products'%}" class="console-nav row">Products</a></small>
+    </div>
+    <div class="col sm-12 lg-9 p-1">
+        <h4>Booking History</h4>
         {% if not orders %}
-        <div class="row mb-1">
+        <div class="row mt-1 muted">
             You have no pending bookings.
         </div>
         {% endif %}
         {% for order in orders %}
-        <div class="col booking-data mb-1">
+        <div class="col booking-data mt-1">
             <strong><a href="{{ order.product.get_pdt_url }}">{{ order.product.name }}</a></strong>
             <small class="mt-05">Order id: {{ order.id }}</small>
             <small>Product id: {{ order.product.id }}</small>
@@ -19,20 +23,16 @@
             <small>Quantities : 2</small>
             <small>Price : Rs {{ order.product.price }}</small>
             {% if not order.is_placed %}
-            <div class="mt-1 mb-1">
-                <a href="{{ order.get_place_url }}" class="btn"><small>Place order</small></a>
+            <div class="row sm-4 mt-1">
+                <a href="{{ order.get_place_url }}" class="btn btn-sm btn-p"><small>Place order</small></a>
             </div>
             {% else %}
-            <div class="mt-1 mb-1">
+            <div class="mt-1">
                 <small>Order placed</small>
             </div>
             {% endif %}
         </div>
         {% endfor %}
-    </div>
-    <div class="col col-25">
-        <h4 class="mb-1">Console</h4>
-        <small><a href="{% url 'seller:products'%}" class="console-nav row">Products</a></small>
     </div>
 </div>
 

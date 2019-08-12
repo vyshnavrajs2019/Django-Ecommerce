@@ -1,13 +1,80 @@
 {% extends 'base2.html' %}
 
 {% block main %}
-<div class="row h-center">
-    <form method="POST" class="auth-form" enctype="multipart/form-data">
+<div class="row mt-1 pl-1 pr-1 mb-1">
+    <div class="col sm-12 md-4"></div>
+    <form method="POST" class="col sm-12 md-4 p-1" enctype="multipart/form-data">
         <h3 class="row h-center">Add product</h3>
         <br>
         {% csrf_token %}
-        {{ form.as_p }}
-        <button class="btn">Save</button>
+        <label for="{{ form.name.id_for_label }}" class="form-label mt-1">{{ form.name.label }}</label>
+        {% if form.errors %}
+            {% for error in form.name.errors %}
+            <span class="form-error">{{ error }}</span>
+            {% endfor %}
+        {% endif %}
+        {{ form.name }}
+        <label for="{{ form.description.id_for_label }}" class="form-label mt-1">{{ form.description.label }}</label>
+        {% if form.errors %}
+            {% for error in form.description.errors %}
+            <span class="form-error">{{ error }}</span>
+            {% endfor %}
+        {% endif %}
+        {{ form.description }}
+        <label for="{{ form.price.id_for_label }}" class="form-label mt-1">{{ form.price.label }}</label>
+        {% if form.errors %}
+            {% for error in form.price.errors %}
+            <span class="form-error">{{ error }}</span>
+            {% endfor %}
+        {% endif %}
+        {{ form.price }}
+        <label for="{{ form.size.id_for_label }}" class="form-label mt-1">{{ form.size.label }}</label>
+        {% if form.errors %}
+            {% for error in form.size.errors %}
+            <span class="form-error">{{ error }}</span>
+            {% endfor %}
+        {% endif %}
+        {{ form.size }}
+        <label for="{{ form.color.id_for_label }}" class="form-label mt-1">{{ form.color.label }}</label>
+        {% if form.errors %}
+            {% for error in form.color.errors %}
+            <span class="form-error">{{ error }}</span>
+            {% endfor %}
+        {% endif %}
+        {{ form.color }}
+        <label for="{{ form.material.id_for_label }}" class="form-label mt-1">{{ form.material.label }}</label>
+        {% if form.errors %}
+            {% for error in form.material.errors %}
+            <span class="form-error">{{ error }}</span>
+            {% endfor %}
+        {% endif %}
+        {{ form.material }}
+        <label for="{{ form.dress_type.id_for_label }}" class="form-label mt-1">{{ form.dress_type.label }}</label>
+        {% if form.errors %}
+            {% for error in form.dress_type.errors %}
+            <span class="form-error">{{ error }}</span>
+            {% endfor %}
+        {% endif %}
+        {{ form.dress_type }}
+        <label for="{{ form.quantity.id_for_label }}" class="form-label mt-1">{{ form.quantity.label }}</label>
+        {% if form.errors %}
+            {% for error in form.quantity.errors %}
+            <span class="form-error">{{ error }}</span>
+            {% endfor %}
+        {% endif %}
+        {{ form.quantity }}
+        <label for="{{ form.image.id_for_label }}" class="form-label mt-1">{{ form.image.label }}</label>
+        {% if form.errors %}
+            {% for error in form.image.errors %}
+            <span class="form-error">{{ error }}</span>
+            {% endfor %}
+        {% endif %}
+        {{ form.image }}
+
+        <!-- {{ form.as_p }} -->
+        
+        <button class="btn btn-sm btn-p mt-1">Save</button>
     </form>
+    <div class="col sm-12 md-4"></div>
 </div>
 {% endblock main %}

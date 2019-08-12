@@ -2,13 +2,13 @@
 
 {% block main %}
 
-<div class="row">
-    <div class="col col-75">
+<div class="row mt-1 pl-1 pr-1">
+    <div class="col sm-12">
         {% if not orders %}
-            <div class="row mb-1">You have no pending orders.</div>
+            <div class="row p-1 bg-light muted">You have no pending orders.</div>
         {% endif %}
         {% for order in orders %}
-        <div class="col booking-data mb-1">
+        <div class="col booking-data mb-1 p-1 bg-light">
             <strong><a href="{{ order.product.get_pdt_url }}">{{ order.product.name }}</a></strong>
             <small class="mt-05">Order id: {{ order.id }}</small>
             <small>Product id: {{ order.product.id }}</small>
@@ -23,7 +23,7 @@
             {% else %}
             <div class="row mt-05 v-center">
                 <small>Order status: Not-Placed</small> &nbsp;&nbsp;
-                <a href="{{ order.get_del_url }}" class="btn"><small>Cancel order</small></a>
+                <a href="{{ order.get_del_url }}" class="btn btn-sm"><small>Cancel order</small></a>
             </div>
             {% endif %}
         </div>

@@ -5,58 +5,67 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Django Ecommerce</title>
     <link rel="stylesheet" href="{% static 'style.css' %}">
+    <link rel="stylesheet" href="{% static 'main.css' %}">
+    <title>Ecommerce</title>
 </head>
 <body>
-    <header>
-        <h2>Django Ecommerce</h2>
-        <nav>
-            <a href="{% url 'home' %}"><small>Home</small></a> / 
+    <div class="row p-1" id="header">
+        <div class="col sm-6 md-3">
+            <h3>Ecommerce</h3>
+        </div>
+        <div class="row hide-sm md-9 visible-md">
+            <a href="{% url 'home' %}"><small>Home</small></a>
             {% if user.is_authenticated %}
-            <a href="{% url 'cart' %}"><small>My Cart</small></a> /
-            <a href="{% url 'order' %}"><small>Orders</small></a> /
+            <a href="{% url 'cart' %}"><small>My Cart</small></a>
+            <a href="{% url 'order' %}"><small>Orders</small></a>
             <a href="{% url 'logout' %}"><small>Logout</small></a> 
             {% else %}
-            <a href="{% url 'login' %}"><small>Login</small></a> / 
+            <a href="{% url 'login' %}"><small>Login</small></a>
             <a href="{% url 'register' %}"><small>Register</small></a>
             {% endif %}
-            
-        </nav>
-        <form method="get" action="{% url 'search' %}">
-            <input type="text" name="query" id="query" placeholder="Search" value="{{ query }}">
-            <small>Min Price:</small> 
-            <select name="min_price">
+        </div>
+        <div class="row sm-6 hide-md">
+            nav
+        </div>
+        <form method="get" action="{% url 'search' %}" class="row sm-12">
+            <input type="text" name="query" id="query" placeholder="Search Shirts | T-Shirts | Trousers | Pants | Jeans" value="{{ query }}" class="row sm-12 lg-4 form-input form-input-sm mt-1">
+
+            <select name="min_price" class="row sm-6 lg-2 form-input form-input-sm mt-1">
+                <option disabled selected>Minimum Price</option>
                 <option value="100" {% ifequal min_price 100  %}selected{% else %}{% endifequal %}>100 Rs</option>
                 <option value="500" {% ifequal min_price 500  %}selected{% else %}{% endifequal %}>500 Rs</option>
                 <option value="1000" {% ifequal min_price 1000  %}selected{% else %}{% endifequal %}>1000 Rs</option>
                 <option value="2000" {% ifequal min_price 2000  %}selected{% else %}{% endifequal %}>2000 Rs</option>
                 <option value="4000" {% ifequal min_price 4000  %}selected{% else %}{% endifequal %}>4000 Rs</option>
             </select>
-            <small>Max Price:</small> 
-            <select name="max_price">
+
+            <select name="max_price" class="row sm-6 lg-2 form-input form-input-sm mt-1">
+                <option disabled selected>Maximum Price</option>
                 <option value="500" {% ifequal max_price 500  %}selected{% else %}{% endifequal %}>500 Rs</option>
                 <option value="1000" {% ifequal max_price 1000  %}selected{% else %}{% endifequal %}>1000 Rs</option>
                 <option value="2000" {% ifequal max_price 2000  %}selected{% else %}{% endifequal %}>2000 Rs</option>
                 <option value="4000" {% ifequal max_price 4000  %}selected{% else %}{% endifequal %}>4000 Rs</option>
                 <option value="8000" {% ifequal max_price 8000  %}selected{% else %}{% endifequal %}>8000 Rs</option>
             </select>
-            <small>Sort By:</small> 
-            <select name="sort_by">
-                <option value='price-low-to-high' {% ifequal sort_by 'price-low-to-high'  %}selected{% else %}{% endifequal %}>Price low to high</option>
-                <option value='price-high-to-low' {% ifequal sort_by 'price-high-to-low'  %}selected{% else %}{% endifequal %}>Price high to low</option>
+
+            <select name="sort_by" class="row sm-6 lg-2 form-input form-input-sm mt-1">
+                <option disabled selected>Sort By</option>
+                <option value='price-low-to-high' {% ifequal sort_by 'price-low-to-high' %}selected{% else %}{% endifequal %}>Price low to high</option>
+                <option value='price-high-to-low' {% ifequal sort_by 'price-high-to-low' %}selected{% else %}{% endifequal %}>Price high to low</option>
             </select>
-            <button type="submit">Search</button>
+
+            <button type="submit" class="sm-6 lg-2 btn btn-sm btn-p mt-1">Search</button>
         </form>
-    </header>
+    </div>
     {% if messages %}
         {% for message in messages %}
-            <div class="row h-center flash-msg alert-{{ message.tags }}">{{ message }}</div>
+            <div class="row h-center v-center flash-msg alert-{{ message.tags }} p-1">{{ message }}</div>
         {% endfor %}
     {% endif %}
     <main>
         {% block main %}
-
+    
         {% endblock main %}
     </main>
 </body>

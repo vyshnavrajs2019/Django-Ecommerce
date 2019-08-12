@@ -1,29 +1,31 @@
 {% extends 'base.html' %}
 
 {% block main %}
-<div class="row">
+<div class="row pl-1 pr-1 pb-1">
     {% for product_obj in products %}
 
-    <div class="col product-item">
-        <div class="img">
+    <div class="col sm-12 lg-3 vl-3 xl-3 product-item mt-1 p-1">
+        <div class="img row">
             <img src="{{ product_obj.product.image.url }}" alt="Product name">
         </div>
-        <h4 class="mt-1">{{ product_obj.product.name|truncatechars:45 }}</h4><br>
-        <small class="mt-1">Price <big><b>{{ product_obj.product.price }}</b></big> Rs</small>
-        <small class="mt-1">Rating: <span>{{ product_obj.product.rating }}</span></small>
+        <h3 class="mt-1">{{ product_obj.product.name|truncatechars:45 }}</h3>
+        <small class="mt-1">Price <big>{{ product_obj.product.price }}</big> Rs</small>
+        <small class="mt-1">Rating <span>{{ product_obj.product.rating }}</span></small>
         <div class="row mt-1">
-            <a href="{{ product_obj.product.get_pdt_url }}" class="btn"><small>View</small></a>
+            <a href="{{ product_obj.product.get_pdt_url }}" class="btn btn-sm row"><small>View</small></a>
             {% if user.is_authenticated %}
             &nbsp;&nbsp;
             {% if product_obj.in_cart %}
-                <a href="{{ product_obj.product.get_rem_cart_url }}{% if query %}?next={% url 'search' %}&#63;query={{query}}%26min_price={{min_price}}%26max_price={{max_price}}%26sort_by={{sort_by}}{% else %}{% endif %}" class="btn"><small>Added to Cart</small></a>
+                <a href="{{ product_obj.product.get_rem_cart_url }}{% if query %}?next={% url 'search' %}&#63;query={{query}}%26min_price={{min_price}}%26max_price={{max_price}}%26sort_by={{sort_by}}{% else %}{% endif %}" class="btn btn-sm row"><small>Added to Cart</small></a>
             {% else %}
-                <a href="{{ product_obj.product.get_add_cart_url }}{% if query %}?next={% url 'search' %}&#63;query={{query}}%26min_price={{min_price}}%26max_price={{max_price}}%26sort_by={{sort_by}}{% else %}{% endif %}" class="btn"><small>Add to Cart</small></a>
+                <a href="{{ product_obj.product.get_add_cart_url }}{% if query %}?next={% url 'search' %}&#63;query={{query}}%26min_price={{min_price}}%26max_price={{max_price}}%26sort_by={{sort_by}}{% else %}{% endif %}" class="btn btn-sm row"><small>Add to Cart</small></a>
             {% endif %}
             {%endif%}
         </div>
     </div>
 
     {% endfor %}
+
+    
 </div>
 {% endblock main %}

@@ -2,13 +2,46 @@
 
 {% block main %}
 
-<div class="row h-center">
-    <form method="POST" class="auth-form">
+<div class="row mt-1 pl-1 pr-1 mb-1">
+    <div class="col sm-12 md-4"></div>
+    <form method="POST" class="col sm-12 md-4 p-1">
         <h3 class="row h-center">Register your company</h3>
         <br>
         {% csrf_token %}
-        {{ form }}
-        <button class="btn">Next</button><br>
+        <label for="{{ form.company.id_for_label }}" class="form-label mt-1">{{ form.company.label }}</label>
+        {% if form.errors %}
+            {% for error in form.company.errors %}
+            <span class="form-error">{{ error }}</span>
+            {% endfor %}
+        {% endif %}
+        {{ form.company }}
+        
+        <label for="{{ form.location.id_for_label }}" class="form-label mt-1">{{ form.location.label }}</label>
+        {% if form.errors %}
+            {% for error in form.location.errors %}
+            <span class="form-error">{{ error }}</span>
+            {% endfor %}
+        {% endif %}
+        {{ form.location }}
+        
+        <label for="{{ form.zipcode.id_for_label }}" class="form-label mt-1">{{ form.zipcode.label }}</label>
+        {% if form.errors %}
+            {% for error in form.zipcode.errors %}
+            <span class="form-error">{{ error }}</span>
+            {% endfor %}
+        {% endif %}
+        {{ form.zipcode }}
+        
+        <label for="{{ form.mobile.id_for_label }}" class="form-label mt-1">{{ form.mobile.label }}</label>
+        {% if form.errors %}
+            {% for error in form.mobile.errors %}
+            <span class="form-error">{{ error }}</span>
+            {% endfor %}
+        {% endif %}
+        {{ form.mobile }}
+        
+        <button class="btn btn-sm btn-p mt-1">Next</button><br>
     </form>
+    <div class="col sm-12 md-4"></div>
 </div>
 {% endblock main %}

@@ -1,28 +1,28 @@
 {% extends 'base.html' %}
 
 {% block main %}
-<div class="row">
+<div class="row mt-1 pl-1 pr-1">
 
     {% if cart_items %}
     {% for cart in cart_items %}
 
-    <div class="col product-item">
-        <div class="img">
+    <div class="col sm-12 md-6 lg-3 vl-3 xl-3 product-item p-1">
+        <div class="img row">
             <img src="{{ cart.product.image.url }}" alt="Product name">
         </div>
-        <h4 class="mt-1">{{ cart.product.name|truncatechars:45 }}</h4><br>
-        <small class="mt-1">Price <big><b>{{ cart.product.price }}</b></big> Rs</small>
-        <small class="mt-1">Rating: <span>{{ cart.product.rating }}</span></small>
+        <h3 class="mt-1">{{ cart.product.name|truncatechars:45 }}</h3>
+        <small class="mt-1">Price <big>{{ cart.product.price }}</big> Rs</small>
+        <small class="mt-1">Rating <span>{{ cart.product.rating }}</span></small>
         <div class="row mt-1">
-            <a href="{{ cart.product.get_pdt_url }}" class="btn"><small>View</small></a>
+            <a href="{{ cart.product.get_pdt_url }}" class="row btn btn-sm"><small>View</small></a>
             &nbsp;&nbsp;
-            <a href="{{ cart.product.get_rem_cart_url }}?next=/cart/" class="btn"><small>Remove</small></a>
+            <a href="{{ cart.product.get_rem_cart_url }}?next=/cart/" class="row btn btn-sm"><small>Remove</small></a>
         </div>
     </div>
 
     {% endfor %}
     {% else %}
-    <div class="row" style="padding: 1em; background: #f3f3f3">
+    <div class="row bg-light p-1 muted">
         Your cart is empty.
     </div>
     {% endif %}

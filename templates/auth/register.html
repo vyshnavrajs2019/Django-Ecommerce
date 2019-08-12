@@ -2,19 +2,57 @@
 
 {% block main %}
 
-<div class="row h-center">
-    <form method="POST" class="auth-form">
+<div class="row mt-1 pl-1 pr-1 mb-1">
+    <div class="col sm-12 md-4"></div>
+    <form method="POST" class="col sm-12 md-4 p-1 bg-light">
         <h3 class="row h-center">Sign Up</h3>
         <br>
         {% csrf_token %}
-        {{ form.as_p }}
-        <div class="row">
-            <label for="id_is_seller">{{ is_seller_form.is_seller.label }}</label>
+        <label for="id_email" class="form-label mt-1">{{ form.email.label }}</label>
+        {% if form.errors %}
+            {% for error in form.email.errors %}
+            <span class="form-error">{{ error }}</span>
+            {% endfor %}
+        {% endif %}
+        {{ form.email }}
+
+        <label for="id_username" class="form-label mt-1">{{ form.username.label }}</label>
+        {% if form.errors %}
+            {% for error in form.username.errors %}
+            <span class="form-error">{{ error }}</span>
+            {% endfor %}
+        {% endif %}
+        {{ form.username }}
+
+        <label for="id_password1" class="form-label mt-1">{{ form.password1.label }}</label>
+        {% if form.errors %}
+            {% for error in form.password1.errors %}
+            <span class="form-error">{{ error }}</span>
+            {% endfor %}
+        {% endif %}
+        {{ form.password1 }}
+
+        <label for="id_password2" class="form-label mt-1">{{ form.password2.label }}</label>
+        {% if form.errors %}
+            {% for error in form.password2.errors %}
+            <span class="form-error">{{ error }}</span>
+            {% endfor %}
+        {% endif %}
+        {{ form.password2 }}
+
+        <div class="row mt-1">
+            <label for="id_is_seller" class="form-label mr-1">{{ is_seller_form.is_seller.label }}</label>
+            {% if is_seller_form.errors %}
+                {% for error in is_seller_form.is_seller.errors %}
+                <span class="form-error">{{ error }}</span>
+                {% endfor %}
+            {% endif %}
             {{ is_seller_form.is_seller }}
         </div>
-        <button class="btn">Sign Up</button><br><br>
-        <small>Have an account <a href="{% url 'login' %}">Login</a></small>
+        <button class="btn btn-md btn-p mt-1">Sign Up</button>
+        <small class="muted mt-1">Have an account <a href="{% url 'login' %}">Login</a></small>
     </form>
+    <div class="col sm-12 md-4"></div>
 </div>
 
 {% endblock main %}

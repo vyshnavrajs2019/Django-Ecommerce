@@ -2,14 +2,31 @@
 
 {% block main %}
 
-<div class="row h-center">
-    <form method="POST" class="auth-form">
+<div class="row mt-1 pl-1 pr-1">
+    <div class="col sm-12 md-4"></div>
+    <form method="POST" class="col sm-12 md-4 p-1 bg-light">
         <h3 class="row h-center">Login</h3>
         <br>
         {% csrf_token %}
-        {{ form.as_p }}
-        <button class="btn">Login</button><br><br>
-        <small>Need an account <a href="{% url 'register' %}">Sign Up</a></small>
+        <label for="id_username" class="form-label mt-1">{{ form.username.label }}</label>
+        {% if form.username.errors %}
+        {% for error in form.username.errors %}
+        <div class="row">{{ error }}</div>
+        {% endfor %}
+        {% endif %}
+        <input class="form-input form-input-md" id="{{ form.username.id_for_label }}" maxlength="{{ form.username.username.max_length }}" name="{{ form.username.html_name }}" value="" placeholder="Username" type="text" />
+
+        <label for="id_password" class="form-label mt-1">{{ form.password.label }}</label>
+        {% if form.password.errors %}
+        {% for error in form.password.errors %}
+        <div class="row">{{ error }}</div>
+        {% endfor %}
+        {% endif %}
+        <input class="form-input form-input-md" id="{{ form.password.id_for_label }}" maxlength="{{ form.password.password.max_length }}" name="{{ form.password.html_name }}" value="" placeholder="Password" type="password" />
+
+        <button class="btn btn-md btn-p mt-1">Login</button>
+        <small class="muted mt-1">Need an account <a href="{% url 'register' %}">Sign Up</a></small>
     </form>
+    <div class="col sm-12 md-4"></div>
 </div>
 {% endblock main %}

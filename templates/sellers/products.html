@@ -1,34 +1,33 @@
 {% extends 'base2.html' %}
 
 {% block main %}
-<div class="row">
-    <div class="row col-75" style="background: #ccc; padding: 0em;">
+<div class="row mt-1">
+    <div class="col sm-12 lg-3 p-1 v-start">
+        <h4 class="mb-1">Console</h4>
+        <small><a href="{% url 'seller:new-product'%}" class="console-nav row">Add product</a></small>
+    </div>
+    <div class="row sm-12 lg-9 p-1">
     {% if products %}
         {% for product in products %}
-            <div class="col product-item" style="min-width: calc((100% - 1.5em) / 3); max-width: calc((100% - 1.5em) / 3);">
-                <div class="img">
+            <div class="col sm-12 md-6 lg-4 product-item mb-2">
+                <div class="row img">
                     <img src="{{ product.image.url }}" alt="Product name">
                 </div>
-                <h4 class="mt-1">{{ product.name|truncatechars:30}}</h4><br>
-                <small class="mt-1">Price <big><b>{{ product.price }}</b></big> Rs</small>
+                <h3 class="mt-1">{{ product.name|truncatechars:30}}</h3>
+                <small class="mt-1">Price <big>{{ product.price }}</big> Rs</small>
                 <small class="mt-1">Rating: <span>{{ product.rating }}</span></small>
                 <div class="row mt-1">
-                    <a href="{{ product.get_pdt_url }}" class="btn"><small>View</small></a>
+                    <a href="{{ product.get_pdt_url }}" class="row btn btn-sm"><small>View</small></a>
                     &nbsp;
-                    <a href="{{ product.get_del_url }}" class="btn"><small>Delete</small></a>
+                    <a href="{{ product.get_del_url }}" class="row btn btn-sm"><small>Delete</small></a>
                     &nbsp;
-                    <a href="{{ product.get_edit_url }}" class="btn"><small>Edit</small></a>
+                    <a href="{{ product.get_edit_url }}" class="row btn btn-sm"><small>Edit</small></a>
                 </div>
             </div>
         {% endfor %}
     {% else %}
-        <div class="row">No products available</div>
+        <div class="row muted">No products available</div>
     {% endif %}
-    </div>
-    
-    <div class="col col-25">
-        <h4 class="mb-1">Console</h4>
-        <small><a href="{% url 'seller:new-product'%}" class="console-nav row">Add product</a></small>
     </div>
 </div>
 {% endblock main %}

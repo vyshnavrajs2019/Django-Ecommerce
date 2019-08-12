@@ -1,0 +1,53 @@
+body{
+    /* background: #aaa; */
+}
+
+#header{
+    background-color: midnightblue;
+    color: #fff;
+}
+
+#header button.btn-p{
+    background-color: mediumseagreen;
+    border-radius: 0px;
+    border-color: mediumseagreen;
+}
+
+div.product-item{
+    background: #fff;
+}
+
+.bg-light{
+    background: #fff;
+}
+
+div.product-item .img,
+div.product-img{
+    min-height: 10em;
+    max-height: 10em;
+    width: 100%;
+    overflow: hidden;
+    justify-content: center;
+}
+
+div.product-item .img img,
+div.product-img img{
+    min-height: 10em;
+    max-height: 10em;
+    width: auto;
+    object-fit: contain;
+}
+
+textarea.form-input-sm{
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+}
+
+@media screen and (min-width: 960px){
+    #header{
+        padding: 1em 10em;
+    }
+    main{
+        padding: 0em 9em;
+    }
+}

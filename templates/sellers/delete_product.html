@@ -1,15 +1,15 @@
 {% extends 'base2.html' %}
 
 {% block main %}
-<div class="col" style="background: #f3f3f3;padding: 2em;">
+<div class="row m-1 mt-2">
     <p>Are you sure you want to delete <strong>{{product.name}}</strong> ?</p>
-    <div class="row mt-1">
+    <div class="row sm-12 mt-1">
         <form method="post">
             {% csrf_token %}
-            <button type="submit" class="btn">Yes</button>
+            <button type="submit" class="btn btn-sm">Yes</button>
         </form>
         &nbsp;&nbsp;
-        <a class="btn" href="{% url 'seller:products' %}">No</a>
+        <a class="btn btn-sm" href="{% url 'seller:products' %}">No</a>
     </div>
 </div>
 {% endblock main %}
